@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:17
+    container_name: gesoft-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: gesoft
+      POSTGRES_USER: geuser
+      POSTGRES_PASSWORD: ge123
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - gesoft_data:/var/lib/postgresql/data
+
+volumes:
+  gesoft_data:
+
