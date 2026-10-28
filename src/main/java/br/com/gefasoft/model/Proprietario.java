@@ -12,15 +12,21 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="tb_proprietario")
+@Table(name = "tb_proprietario")
 public class Proprietario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false,length = 100)
+
+    @Column(nullable = false, length = 100)
     private String nome;
+
     @Column(nullable = false)
     private String senha;
+
     @OneToMany(mappedBy = "proprietario")
     private List<Industria> industrias = new ArrayList<>();
+
+    @OneToMany(mappedBy = "proprietario")
+    private List<Produto> produtos = new ArrayList<>();
 }
