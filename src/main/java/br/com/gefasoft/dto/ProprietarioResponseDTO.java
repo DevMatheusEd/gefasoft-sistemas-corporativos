@@ -1,5 +1,6 @@
 package br.com.gefasoft.dto;
 
 public record ProprietarioResponseDTO(Long id,
-                                      String nome) {
+                                      String nome,
+                                      String email) {
 }
