@@ -41,4 +41,35 @@ public class ProdutoService {
                 .map(ProdutoResponseDTO::new)
                 .toList();
     }
+
+    public ProdutoResponseDTO buscarPorId(Long id) {
+        Produto produto = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado."));
+        return new ProdutoResponseDTO(produto);
+    }
+
+    public ProdutoResponseDTO atualizar(Long id, ProdutoRequestDTO dto) {
+        Produto produto = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado."));
+
+        Proprietario proprietario = proprietarioRepository.findById(dto.proprietarioId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Proprietário não encontrado."));
+
+        produto.setNome(dto.nome());
+        produto.setPrecoUnitario(dto.precoUnitario());
+        produto.setUnidadeMedida(dto.unidadeMedida());
+        produto.setTipoEmbalagem(dto.tipoEmbalagem());
+        produto.setProprietario(proprietario);
+
+        Produto atualizado = repository.save(produto);
+        return new ProdutoResponseDTO(atualizado);
+    }
+
+    public void deletar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado.");
+        }
+
+        repository.deleteById(id);
+    }
 }
