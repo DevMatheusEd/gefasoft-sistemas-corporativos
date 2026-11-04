@@ -33,6 +33,25 @@ public class ProprietarioService {
                 .orElseThrow(()-> new IllegalArgumentException("Proprietário de id" + id + " inexistente"));
     }
 
+    public ProprietarioResponseDTO atualizar(Long id, ProprietarioRequestDTO dto) {
+        Proprietario usuario = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Proprietário de id " + id + " inexistente"));
+
+        usuario.setNome(dto.nome());
+        usuario.setSenha(dto.senha());
+        usuario.setEmail(dto.email());
+
+        Proprietario atualizado = repository.save(usuario);
+        return toResponseDTO(atualizado);
+    }
+
+    public void excluir(Long id) {
+        if (!repository.existsById(id)) {
+            throw new IllegalArgumentException("Proprietário de id " + id + " inexistente");
+        }
+        repository.deleteById(id);
+    }
+
     public void editarSenha(Long id, String senhaAtual, String novaSenha){
         Proprietario usuario = buscarPorId(id);
 

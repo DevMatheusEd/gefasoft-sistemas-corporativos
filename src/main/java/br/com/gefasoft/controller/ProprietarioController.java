@@ -36,4 +36,16 @@ public class ProprietarioController {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ProprietarioResponseDTO> atualizar(@PathVariable Long id,
+                                                           @RequestBody ProprietarioRequestDTO dto) {
+        return ResponseEntity.ok(service.atualizar(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        service.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
