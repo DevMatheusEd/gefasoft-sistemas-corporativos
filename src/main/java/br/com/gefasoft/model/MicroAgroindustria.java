@@ -10,14 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="tb_industria")
-public class Industria {
+public class MicroAgroindustria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false,length = 100)
     private String nome;
-    // tem um dono
     @ManyToOne(optional = false)
-    @JoinColumn(name = "proprietario_id", nullable = false)
+    @JoinColumn(name = "proprietario_id", nullable = false)   // tem um dono
     private Proprietario proprietario;
 }
