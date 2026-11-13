@@ -34,11 +34,9 @@ public class ProprietarioService {
     }
 
     public ProprietarioResponseDTO atualizar(Long id, ProprietarioRequestDTO dto) {
-        Proprietario usuario = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Proprietário de id " + id + " inexistente"));
+        Proprietario usuario = buscarPorId(id);
 
         usuario.setNome(dto.nome());
-        usuario.setSenha(dto.senha());
         usuario.setEmail(dto.email());
 
         Proprietario atualizado = repository.save(usuario);
