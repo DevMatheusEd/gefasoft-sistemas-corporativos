@@ -15,4 +15,5 @@ public class Funcionario {
     private Long id;
     private String nome;
     private String funcao;
+    private Boolean ativo = true;
 }

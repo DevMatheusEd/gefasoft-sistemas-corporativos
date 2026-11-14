@@ -42,10 +42,10 @@ public class FuncionarioController {
         return ResponseEntity.ok(service.atualizar(id, dto));
     }
 
-    // DELETE /funcionarios/{id} (Excluir)
+    // DELETE /funcionarios/{id} (Inativar funcionário)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        service.excluir(id);
+    public ResponseEntity<Void> inativar(@PathVariable Long id) {
+        service.inativar(id);
         return ResponseEntity.noContent().build();
     }
 }

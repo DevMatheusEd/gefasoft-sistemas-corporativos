@@ -20,6 +20,7 @@ public class FuncionarioService {
         Funcionario funcionario = new Funcionario();
         funcionario.setNome(dto.nome());
         funcionario.setFuncao(dto.funcao());
+        funcionario.setAtivo(true);
 
         funcionario = repository.save(funcionario);
         return new FuncionarioResponseDTO(funcionario);
@@ -52,11 +53,12 @@ public class FuncionarioService {
         return new FuncionarioResponseDTO(funcionario);
     }
 
-    // DELETE
-    public void excluir(Long id) {
-        if (!repository.existsById(id)) {
-            throw new RuntimeException("Funcionário não encontrado com o ID: " + id);
-        }
-        repository.deleteById(id);
+    // SOFT DELETE (Inativar)
+    public void inativar(Long id) {
+        Funcionario funcionario = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado com o ID: " + id));
+
+        funcionario.setAtivo(false);
+        repository.save(funcionario);
     }
 }
