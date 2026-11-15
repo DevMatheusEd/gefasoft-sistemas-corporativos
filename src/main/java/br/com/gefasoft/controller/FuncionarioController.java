@@ -3,6 +3,7 @@ package br.com.gefasoft.controller;
 import br.com.gefasoft.dto.FuncionarioRequestDTO;
 import br.com.gefasoft.dto.FuncionarioResponseDTO;
 import br.com.gefasoft.service.FuncionarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class FuncionarioController {
 
     // POST /funcionarios (Cadastrar)
     @PostMapping
-    public ResponseEntity<FuncionarioResponseDTO> cadastrar(@RequestBody FuncionarioRequestDTO dto) {
+    public ResponseEntity<FuncionarioResponseDTO> cadastrar(@RequestBody @Valid FuncionarioRequestDTO dto) {
         FuncionarioResponseDTO response = service.cadastrar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -38,7 +39,7 @@ public class FuncionarioController {
 
     // PUT /funcionarios/{id} (Atualizar)
     @PutMapping("/{id}")
-    public ResponseEntity<FuncionarioResponseDTO> atualizar(@PathVariable Long id, @RequestBody FuncionarioRequestDTO dto) {
+    public ResponseEntity<FuncionarioResponseDTO> atualizar(@PathVariable Long id, @RequestBody @Valid FuncionarioRequestDTO dto) {
         return ResponseEntity.ok(service.atualizar(id, dto));
     }
 
