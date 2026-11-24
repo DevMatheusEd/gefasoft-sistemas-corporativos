@@ -5,13 +5,15 @@ import br.com.gefasoft.model.Funcionario;
 public record FuncionarioResponseDTO(
         Long id,
         String nome,
-        String funcao
+        String funcao,
+        Boolean ativo
 ) {
     public FuncionarioResponseDTO(Funcionario funcionario) {
         this(
                 funcionario.getId(),
                 funcionario.getNome(),
-                funcionario.getFuncao()
+                funcionario.getFuncao(),
+                funcionario.getAtivo()
         );
     }
 }
