@@ -11,5 +11,6 @@ public record FuncionarioRequestDTO(
 
         @NotBlank
         @Size(min = 2, max = 50)
+        @NotNull
         String funcao
 ) {}
