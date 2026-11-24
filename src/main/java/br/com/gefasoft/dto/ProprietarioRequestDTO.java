@@ -1,6 +1,11 @@
 package br.com.gefasoft.dto;
 
-public record ProprietarioRequestDTO(String nome,
+import jakarta.validation.constraints.NotNull;
+
+public record ProprietarioRequestDTO(@NotNull
+                                     String nome,
+                                     @NotNull
                                      String senha,
+                                     @NotNull
                                      String email) {
 }
