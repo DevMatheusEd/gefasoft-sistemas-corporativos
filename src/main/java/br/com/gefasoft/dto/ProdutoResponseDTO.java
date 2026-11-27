@@ -1,25 +1,20 @@
 package br.com.gefasoft.dto;
 
 import br.com.gefasoft.model.Produto;
-
-import java.math.BigDecimal;
+import br.com.gefasoft.model.UnidadeMedida;
 
 public record ProdutoResponseDTO(
         Long id,
         String nome,
-        BigDecimal precoUnitario,
-        String unidadeMedida,
-        String tipoEmbalagem,
-        Long proprietarioId
+        UnidadeMedida unidadeMedida,
+        String tipoEmbalagem
 ) {
     public ProdutoResponseDTO(Produto produto) {
         this(
                 produto.getId(),
                 produto.getNome(),
-                produto.getPrecoUnitario(),
                 produto.getUnidadeMedida(),
-                produto.getTipoEmbalagem(),
-                produto.getProprietario().getId()
+                produto.getTipoEmbalagem()
         );
     }
 }

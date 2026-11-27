@@ -5,7 +5,7 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
+import br.com.gefasoft.model.UnidadeMedida;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,10 +18,8 @@ class ProdutoRequestDTOTest {
     void deveValidarCamposObrigatoriosDoProduto() {
         ProdutoRequestDTO dto = new ProdutoRequestDTO(
                 "",
-                null,
-                "",
-                "",
-                1L
+                UnidadeMedida.KG,
+                ""
         );
 
         Set var = validator.validate(dto);

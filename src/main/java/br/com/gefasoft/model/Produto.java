@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,16 +19,10 @@ public class Produto {
     @Column(nullable = false, length = 120)
     private String nome;
 
-    @Column(nullable = false, precision = 19, scale = 2)
-    private BigDecimal precoUnitario;
-
-    @Column(nullable = false, length = 50)
-    private String unidadeMedida;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "unidade_medida", nullable = false)
+    private UnidadeMedida unidadeMedida;
 
     @Column(nullable = false, length = 50)
     private String tipoEmbalagem;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "proprietario_id", nullable = false)
-    private Proprietario proprietario;
 }
