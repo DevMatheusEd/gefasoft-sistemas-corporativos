@@ -16,7 +16,13 @@ public class ProprietarioService {
     private final ProprietarioRepository repository;
 
     public ProprietarioResponseDTO cadastrar(ProprietarioRequestDTO dto){
-        Proprietario usuario= new Proprietario(null, dto.nome(), dto.senha(), dto.email(), new ArrayList<>());
+        Proprietario usuario = new Proprietario();
+        usuario.setNome(dto.nome());
+        usuario.setSenha(dto.senha());
+        usuario.setEmail(dto.email());
+        usuario.setIndustrias(new ArrayList<>());
+        usuario.setProdutos(new ArrayList<>());
+
         Proprietario userSalvo = repository.save(usuario);
         return toResponseDTO(userSalvo);
     }
