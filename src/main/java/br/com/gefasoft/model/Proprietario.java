@@ -24,5 +24,5 @@ public class Proprietario {
     @Column(nullable=false)
     private String email;
     @OneToMany(mappedBy = "proprietario")
-    private List<MicroAgroindustria> industrias = new ArrayList<>();
+    private List<MicroAgroIndustria> industrias = new ArrayList<>();
 }

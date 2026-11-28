@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="tb_industria")
-public class MicroAgroindustria {
+public class MicroAgroIndustria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
