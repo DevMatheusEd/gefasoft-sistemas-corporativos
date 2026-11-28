@@ -2,7 +2,7 @@ package br.com.gefasoft.service;
 
 import br.com.gefasoft.dto.MicroAgroIndustriaRequestDTO;
 import br.com.gefasoft.dto.MicroAgroIndustriaResponseDTO;
-import br.com.gefasoft.model.MicroAgroindustria;
+import br.com.gefasoft.model.MicroAgroIndustria;
 import br.com.gefasoft.model.Proprietario;
 import br.com.gefasoft.repository.MicroAgroIndustriaRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,8 @@ public class MicroAgroIndustriaService {
 
     public MicroAgroIndustriaResponseDTO cadastrar(MicroAgroIndustriaRequestDTO dto){
         Proprietario proprietario = proprietarioService.buscarPorId(dto.proprietarioId());
-        MicroAgroindustria industria = new MicroAgroindustria(null, dto.nome(), proprietario);
-        MicroAgroindustria salva = repository.save(industria);
+        MicroAgroIndustria industria = new MicroAgroIndustria(null, dto.nome(), proprietario);
+        MicroAgroIndustria salva = repository.save(industria);
         return toResponseDTO(salva);
     }
 
@@ -30,18 +30,29 @@ public class MicroAgroIndustriaService {
                 .toList();
     }
 
-    public MicroAgroindustria buscarPorId(Long id){
-        return repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Micro industria com id" + id + "inexistente"));
+    // metodo que retorna o response
+    public MicroAgroIndustriaResponseDTO buscarPorId(Long id) {
+        MicroAgroIndustria industria = buscarEntidadePorId(id);
+        return toResponseDTO(industria);
     }
 
     public MicroAgroIndustriaResponseDTO atualizar(Long id, MicroAgroIndustriaRequestDTO dto) {
-        MicroAgroindustria industria = buscarPorId(id);
+        MicroAgroIndustria industria = buscarEntidadePorId(id);
 
         industria.setNome(dto.nome());
 
-        MicroAgroindustria atualizado = repository.save(industria);
+        MicroAgroIndustria atualizado = repository.save(industria);
         return toResponseDTO(atualizado);
+    }
+
+    public List<MicroAgroIndustriaResponseDTO> buscarPorNome(String nome){
+        return repository.findByNomeContainingIgnoreCase(nome)
+                .stream()
+                .map(industria -> new MicroAgroIndustriaResponseDTO(
+                        industria.getId(),
+                        industria.getNome(),
+                        industria.getProprietario().getNome()
+                )).toList();
     }
 
     public void excluir(Long id) {
@@ -51,11 +62,17 @@ public class MicroAgroIndustriaService {
         repository.deleteById(id);
     }
 
-    private MicroAgroIndustriaResponseDTO toResponseDTO(MicroAgroindustria industria){
+    private MicroAgroIndustriaResponseDTO toResponseDTO(MicroAgroIndustria industria){
         return new MicroAgroIndustriaResponseDTO(
                 industria.getId(),
                 industria.getNome(),
                 industria.getProprietario().getNome()
         );
+    }
+
+    // metodo para retornar o objeto
+    private MicroAgroIndustria buscarEntidadePorId(Long id){
+        return repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Micro industria com id " + id + " inexistente"));
     }
 }
